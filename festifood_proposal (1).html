@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Festifood - Proposal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #ff8c00, #ffa500, #ffd700);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(139, 69, 19, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(218, 165, 32, 0.05) 0%, transparent 50%),
+                linear-gradient(45deg, transparent 25%, rgba(205, 133, 63, 0.02) 25%, rgba(205, 133, 63, 0.02) 50%, transparent 50%);
+            background-size: 100px 100px, 80px 80px, 30px 30px;
+            z-index: 0;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            background: linear-gradient(135deg, #ff8c00, #ffa500);
+            margin: -20px -20px 3rem -20px;
+            color: white;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .main-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #ffffff, #fafafa);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 140, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid transparent;
+            background: linear-gradient(to right, #ff8c00, #ffa500) no-repeat bottom;
+            background-size: 100% 3px;
+        }
+
+        .section-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+            color: #ff8c00;
+            background: linear-gradient(135deg, #ff8c00, #ffa500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 4px solid #ff8c00;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #ff8c00;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-icon {
+            margin-right: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #fff5e6, #ffeaa7);
+            border: 2px solid #ffa500;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .highlight-box::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff8c00, #ffa500, #ffd700);
+            border-radius: 12px;
+            z-index: -1;
+        }
+
+        .budget-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .budget-table th,
+        .budget-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .budget-table th {
+            background: linear-gradient(135deg, #ff8c00, #ffa500);
+            color: white;
+            font-weight: 600;
+        }
+
+        .budget-table tr:nth-child(even) {
+            background: #fafafa;
+        }
+
+        .budget-table tr:hover {
+            background: #fff5e6;
+        }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            background: rgba(255, 140, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .contact-icon {
+            color: #ff8c00;
+            margin-right: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: -20px;
+            margin-left: -20px;
+            margin-right: -20px;
+        }
+
+        .signature-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            gap: 2rem;
+        }
+
+        .signature-box {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            border: 2px dashed #ff8c00;
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .section {
+                margin-bottom: 2rem;
+                padding: 1.5rem;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .signature-section {
+                flex-direction: column;
+            }
+        }
+
+        .decorative-element {
+            position: absolute;
+            opacity: 0.1;
+            color: #ff8c00;
+            font-size: 8rem;
+            transform: rotate(-15deg);
+            z-index: 0;
+        }
+
+        .decorative-element.top-right {
+            top: 50px;
+            right: 50px;
+        }
+
+        .decorative-element.bottom-left {
+            bottom: 50px;
+            left: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <i class="fas fa-utensils decorative-element top-right"></i>
+        <i class="fas fa-pepper-hot decorative-element bottom-left"></i>
+        
+        <div class="content">
+            <div class="header">
+                <h1 class="main-title">FESTIFOOD</h1>
+                <p class="subtitle">Festival Kuliner Nusantara yang Mendunia</p>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <i class="fas fa-lightbulb section-icon"></i>
+                    <h2 class="section-title">Latar Belakang & Konsep</h2>
+                </div>
+                <div class="grid">
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-globe-asia card-icon"></i>
+                            Visi Global
+                        </h3>
+                        <p>Festifood hadir sebagai platform untuk memperkenalkan kekayaan kuliner Nusantara ke dunia internasional, menggabungkan tradisi dengan inovasi modern.</p>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-handshake card-icon"></i>
+                            Kolaborasi Strategis
+                        </h3>
+                        <p>Menghubungkan chef lokal dengan komunitas internasional, menciptakan network kuliner yang berkelanjutan dan saling menguntungkan.</p>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-seedling card-icon"></i>
+                            Keberlanjutan
+                        </h3>
+                        <p>Mendukung petani lokal dan menggunakan bahan-bahan organik untuk menciptakan ekosistem kuliner yang berkelanjutan.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <i class="fas fa-bullseye section-icon"></i>
+                    <h2 class="section-title">Tujuan & Target</h2>
+                </div>
+                <div class="highlight-box">
+                    <h3 style="color: #ff8c00; margin-bottom: 1rem;"><i class="fas fa-star"></i> Tujuan Utama</h3>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="margin-bottom: 0.5rem;"><i class="fas fa-check-circle" style="color: #ff8c00; margin-right: 0.5rem;"></i> Mempromosikan kuliner Nusantara di pasar internasional</li>
+                        <li style="margin-bottom: 0.5rem;"><i class="fas fa-check-circle" style="color: #ff8c00; margin-right: 0.5rem;"></i> Meningkatkan ekonomi kreatif sektor kuliner</li>
+                        <li style="margin-bottom: 0.5rem;"><i class="fas fa-check-circle" style="color: #ff8c00; margin-right: 0.5rem;"></i> Menciptakan brand awareness untuk produk lokal</li>
+                        <li style="margin-bottom: 0.5rem;"><i class="fas fa-check-circle" style="color: #ff8c00; margin-right: 0.5rem;"></i> Membangun jaringan kuliner internasional</li>
+                    </ul>
+                </div>
+                <div class="grid">
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-users card-icon"></i>
+                            Target Peserta
+                        </h3>
+                        <p><strong>15,000</strong> pengunjung dalam 3 hari acara, termasuk food blogger, chef profesional, dan pecinta kuliner dari berbagai negara.</p>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-chart-line card-icon"></i>
+                            Target Revenue
+                        </h3>
+                        <p><strong>Rp 2.5 Miliar</strong> dari penjualan makanan, merchandise, dan sponsorship, dengan ROI minimal 150%.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <i class="fas fa-calendar-alt section-icon"></i>
+                    <h2 class="section-title">Rundown Acara</h2>
+                </div>
+                <div class="grid">
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-play-circle card-icon"></i>
+                            Hari 1: Grand Opening
+                        </h3>
+                        <p><strong>09:00 - 12:00:</strong> Pembukaan, Welcome Speech, Cultural Performance<br>
+                        <strong>13:00 - 18:00:</strong> Food Tasting, Live Cooking Demo<br>
+                        <strong>19:00 - 22:00:</strong> Gala Dinner & Networking Night</p>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-fire card-icon"></i>
+                            Hari 2: Kompetisi
+                        </h3>
+                        <p><strong>08:00 - 12:00:</strong> Cooking Competition<br>
+                        <strong>13:00 - 17:00:</strong> Workshop & Masterclass<br>
+                        <strong>18:00 - 21:00:</strong> Awards Ceremony</p>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-flag-checkered card-icon"></i>
+                            Hari 3: Penutupan
+                        </h3>
+                        <p><strong>09:00 - 15:00:</strong> Final Food Expo<br>
+                        <strong>16:00 - 18:00:</strong> Business Matching<br>
+                        <strong>19:00 - 21:00:</strong> Closing Ceremony</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <i class="fas fa-calculator section-icon"></i>
+                    <h2 class="section-title">Budget & Finansial</h2>
+                </div>
+                <table class="budget-table">
+                    <thead>
+                        <tr>
+                            <th><i class="fas fa-list-ul" style="margin-right: 0.5rem;"></i>Kategori</th>
+                            <th><i class="fas fa-money-bill-wave" style="margin-right: 0.5rem;"></i>Budget (Rp)</th>
+                            <th><i class="fas fa-percentage" style="margin-right: 0.5rem;"></i>Persentase</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Venue & Dekorasi</td>
+                            <td>450,000,000</td>
+                            <td>30%</td>
+                        </tr>
+                        <tr>
+                            <td>Marketing & Promosi</td>
+                            <td>300,000,000</td>
+                            <td>20%</td>
+                        </tr>
+                        <tr>
+                            <td>Talent & Entertainment</td>
+                            <td>225,000,000</td>
+                            <td>15%</td>
+                        </tr>
+                        <tr>
+                            <td>Catering & F&B</td>
+                            <td>225,000,000</td>
+                            <td>15%</td>
+                        </tr>
+                        <tr>
+                            <td>Operasional</td>
+                            <td>150,000,000</td>
+                            <td>10%</td>
+                        </tr>
+                        <tr>
+                            <td>Contingency</td>
+                            <td>150,000,000</td>
+                            <td>10%</td>
+                        </tr>
+                        <tr style="background: linear-gradient(135deg, #ff8c00, #ffa500); color: white; font-weight: bold;">
+                            <td><strong>TOTAL BUDGET</strong></td>
+                            <td><strong>1,500,000,000</strong></td>
+                            <td><strong>100%</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <i class="fas fa-handshake section-icon"></i>
+                    <h2 class="section-title">Partnership & Sponsorship</h2>
+                </div>
+                <div class="grid">
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-crown card-icon"></i>
+                            Platinum Sponsor
+                        </h3>
+                        <p><strong>Investment:</strong> Rp 500,000,000<br>
+                        <strong>Benefits:</strong> Logo utama, booth premium, speaking slot, media exposure maksimal</p>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-medal card-icon"></i>
+                            Gold Sponsor
+                        </h3>
+                        <p><strong>Investment:</strong> Rp 300,000,000<br>
+                        <strong>Benefits:</strong> Logo prominent, booth strategis, workshop session, media partnership</p>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-star card-icon"></i>
+                            Silver Sponsor
+                        </h3>
+                        <p><strong>Investment:</strong> Rp 150,000,000<br>
+                        <strong>Benefits:</strong> Logo display, booth standard, networking access, merchandise inclusion</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <i class="fas fa-phone section-icon"></i>
+                    <h2 class="section-title">Kontak & Informasi</h2>
+                </div>
+                <div class="grid">
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-user-tie card-icon"></i>
+                            Project Director
+                        </h3>
+                        <div class="contact-info">
+                            <i class="fas fa-user contact-icon"></i>
+                            <span>RakaFest</span>
+                        </div>
+                        <div class="contact-info">
+                            <i class="fas fa-envelope contact-icon"></i>
+                            <span>director@festifood.id</span>
+                        </div>
+                        <div class="contact-info">
+                            <i class="fas fa-phone contact-icon"></i>
+                            <span>+62 821-3456-7890</span>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-building card-icon"></i>
+                            Head Office
+                        </h3>
+                        <div class="contact-info">
+                            <i class="fas fa-map-marker-alt contact-icon"></i>
+                            <span>Jl. Kuliner Nusantara No. 123<br>Jakarta Selatan, DKI Jakarta 12345</span>
+                        </div>
+                        <div class="contact-info">
+                            <i class="fas fa-globe contact-icon"></i>
+                            <span>www.festifood.id</span>
+                        </div>
+                        <div class="contact-info">
+                            <i class="fas fa-clock contact-icon"></i>
+                            <span>Senin - Jumat, 09:00 - 18:00 WIB</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="signature-section">
+                <div class="signature-box">
+                    <h4 style="color: #ff8c00; margin-bottom: 3rem;">Diajukan Oleh:</h4>
+                    <div style="border-bottom: 1px solid #ccc; width: 200px; margin: 0 auto 1rem;"></div>
+                    <p>Tim Festifood</p>
+                    <p style="font-size: 0.9rem; color: #666;">Event Organizer</p>
+                </div>
+                <div class="signature-box">
+                    <h4 style="color: #ff8c00; margin-bottom: 3rem;">Disetujui Oleh:</h4>
+                    <div style="border-bottom: 1px solid #ccc; width: 200px; margin: 0 auto 1rem;"></div>
+                    <p>_________________</p>
+                    <p style="font-size: 0.9rem; color: #666;">Sponsor/Partner</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p style="font-size: 1.2rem; margin-bottom: 0.5rem;">
+                <i class="fas fa-utensils" style="margin-right: 0.5rem;"></i>
+                <strong>FESTIFOOD 2025</strong>
+            </p>
+            <p style="opacity: 0.8;">"Merayakan Cita Rasa Nusantara untuk Dunia"</p>
+        </div>
+    </div>
+</body>
+</html>
